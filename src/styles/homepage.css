@@ -478,7 +478,7 @@ html, body {
   }
 
   .nav-container.shrunk {
-    width: 85px; /* Adjusted for smaller logo and padding on mobile */
+    width: 95px; /* Adjusted for smaller logo and padding on mobile */
   }
 
   .nav-logo {
