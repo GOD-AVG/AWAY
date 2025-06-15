@@ -24,13 +24,10 @@ const HomePage: React.FC = () => {
     3: false,
     4: false,
   });
-  const [isDragging, setIsDragging] = useState(false);
-  const [navTop, setNavTop] = useState(0.4); // Initial top position in rem
   const navRef = useRef<HTMLDivElement>(null);
-  const dragStartY = useRef<number>(0);
-  const currentTop = useRef<number>(0);
 
-  const toggleNav = () => {
+  const toggleNav = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation(); // Prevent click from triggering shrink
     setIsNavExpanded(!isNavExpanded);
   };
 
@@ -76,104 +73,29 @@ const HomePage: React.FC = () => {
     console.log(`Username clicked for ${username}`);
   };
 
-  // Convert rem to pixels
-  const remToPixels = (rem: number) => {
-    return (
-      rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
-    );
-  };
-
-  // Convert pixels to rem
-  const pixelsToRem = (px: number) => {
-    return px / parseFloat(getComputedStyle(document.documentElement).fontSize);
-  };
-
-  // Start dragging
-  const startDragging = (clientY: number) => {
-    if (!navRef.current || isNavExpanded) return; // Only drag in shrunk state
-    setIsDragging(true);
-    dragStartY.current = clientY;
-    currentTop.current = remToPixels(navTop);
-  };
-
-  // Handle drag movement
-  const handleDrag = (clientY: number) => {
-    if (!isDragging || !navRef.current) return;
-    const deltaY = clientY - dragStartY.current;
-    let newTop = currentTop.current + deltaY;
-    const navHeight = navRef.current.offsetHeight;
-    const maxTop = window.innerHeight - navHeight;
-    newTop = Math.max(0, Math.min(newTop, maxTop));
-    setNavTop(pixelsToRem(newTop));
-    dragStartY.current = clientY;
-    currentTop.current = newTop;
-  };
-
-  // Stop dragging
-  const stopDragging = () => {
-    if (!isDragging) return;
-    setIsDragging(false);
-  };
-
-  // Mouse event handlers
-  const handleMouseDown = (e: React.MouseEvent) => {
-    startDragging(e.clientY);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    handleDrag(e.clientY);
-  };
-
-  const handleMouseUp = () => {
-    stopDragging();
-  };
-
-  // Touch event handlers
-  const handleTouchStart = (e: React.TouchEvent) => {
-    startDragging(e.touches[0].clientY);
-  };
-
-  const handleTouchMove = (e: TouchEvent) => {
-    e.preventDefault(); // Prevent scrolling
-    handleDrag(e.touches[0].clientY);
-  };
-
-  const handleTouchEnd = () => {
-    stopDragging();
-  };
-
-  // Add/remove global event listeners
+  // Handle tap/touch to shrink when expanded
   useEffect(() => {
-    if (isDragging) {
-      document.addEventListener("mousemove", handleMouseMove);
-      document.addEventListener("mouseup", handleMouseUp);
-      document.addEventListener("touchmove", handleTouchMove, {
-        passive: false,
-      });
-      document.addEventListener("touchend", handleTouchEnd);
-    }
-    return () => {
-      document.removeEventListener("mousemove", handleMouseMove);
-      document.removeEventListener("mouseup", handleMouseUp);
-      document.removeEventListener("touchmove", handleTouchMove);
-      document.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, [isDragging]);
-
-  // Update position on resize
-  useEffect(() => {
-    const handleResize = () => {
-      if (!navRef.current) return;
-      const navHeight = navRef.current.offsetHeight;
-      const maxTop = window.innerHeight - navHeight;
-      const currentTopPx = remToPixels(navTop);
-      if (currentTopPx > maxTop) {
-        setNavTop(pixelsToRem(maxTop));
+    const handleTapOrTouch = (e: MouseEvent | TouchEvent) => {
+      if (!isNavExpanded || !navRef.current) return;
+      // Ignore if the target is inside the navigation container
+      if (navRef.current.contains(e.target as Node)) {
+        return;
       }
+      setIsNavExpanded(false);
     };
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [navTop]);
+
+    if (isNavExpanded) {
+      document.addEventListener("click", handleTapOrTouch);
+      document.addEventListener("touchstart", handleTapOrTouch, {
+        passive: true,
+      });
+    }
+
+    return () => {
+      document.removeEventListener("click", handleTapOrTouch);
+      document.removeEventListener("touchstart", handleTapOrTouch);
+    };
+  }, [isNavExpanded]);
 
   return (
     <div className="homepage">
@@ -660,25 +582,24 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div
-        className={`navigation ${isDragging ? "dragging" : ""} ${
-          isNavExpanded ? "" : "shrunk"
-        }`}
-        ref={navRef}
-        style={{ top: `${navTop}rem`, bottom: "auto" }}
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-      >
+      <div className="navigation" ref={navRef}>
         <div
           className={`nav-container ${isNavExpanded ? "expanded" : "shrunk"}`}
         >
+          <div className="nav-left-space" style={{ width: "40px" }}></div>
           <button className="nav-logo" onClick={toggleNav}>
             AWAY
           </button>
           <div className="nav-buttons">
-            <button className="nav-button">A</button>
-            <button className="nav-button">B</button>
-            <button className="nav-button">C</button>
+            <button className="nav-button" onClick={(e) => e.stopPropagation()}>
+              A
+            </button>
+            <button className="nav-button" onClick={(e) => e.stopPropagation()}>
+              B
+            </button>
+            <button className="nav-button" onClick={(e) => e.stopPropagation()}>
+              C
+            </button>
           </div>
         </div>
       </div>
