@@ -35,16 +35,17 @@ html, body {
 }
 
 .nav-container {
-  padding: 0.75rem 0.75rem 0.75rem 0.25rem; /* Reduced left padding from 0.5rem to 0.25rem */
-  background-color: rgba(37, 37, 37, 0.1);
-  backdrop-filter: blur(12px);
-  border: 1px solid rgb(37, 37, 37,0.1);
-  border-radius: 24px;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  position: relative; /* For absolute positioning of logo */
   display: flex;
   align-items: center;
-  justify-content: space-between; /* Space between logo and buttons */
-  transition: width 0.3s ease; /* Smooth width transition */
+  justify-content: space-between;
+  padding: 0.75rem 0.75rem 0.75rem 0.25rem;
+  background-color: rgba(37, 37, 37, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: width 0.3s ease;
 }
 
 .nav-container.expanded {
@@ -52,18 +53,21 @@ html, body {
 }
 
 .nav-container.shrunk {
-  width: 80px; /* Adjusted to fit the AWAY logo with reduced padding */
+  width: 100px; /* Adjusted to fit the AWAY logo with reduced padding */
 }
 
 .nav-logo {
-  font-size: 1rem;
-  font-weight: 700; /* Bold weight to match logo */
-  color: rgb(255, 255, 255);
+  position: absolute;
+  left: 0.75rem; /* Align to left margin with padding */
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
   background: transparent;
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-  padding: 0.5rem 0.25rem; /* Reduced left/right padding from 0.5rem to 0.25rem */
+  padding: 0.5rem 0.25rem;
+  white-space: nowrap;
 }
 
 .nav-logo:hover {
@@ -474,12 +478,13 @@ html, body {
   }
 
   .nav-container.shrunk {
-    width: 70px; /* Adjusted for smaller logo and padding on mobile */
+    width: 85px; /* Adjusted for smaller logo and padding on mobile */
   }
 
   .nav-logo {
     font-size: 1.25rem;
     padding: 0.4rem 0.2rem; /* Adjusted padding for mobile */
+    left: 0.5rem; /* Maintain left alignment on mobile */
   }
 
   .nav-button {
@@ -575,7 +580,8 @@ html, body {
   }
 
   .nav-logo {
-    padding: 0.3rem 0.15rem; /* Further adjusted for very small screens */
+    font-size: 1rem;
+    left: 0.5rem; /* Maintain left alignment on very small screens */
   }
 
   .like-button, .comment-button, .share-button {

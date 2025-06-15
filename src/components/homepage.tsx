@@ -565,6 +565,7 @@ const HomePage: React.FC = () => {
         <div
           className={`nav-container ${isNavExpanded ? "expanded" : "shrunk"}`}
         >
+          <div className="nav-left-space" style={{ width: "40px" }}></div>
           <button className="nav-logo" onClick={toggleNav}>
             AWAY
           </button>
