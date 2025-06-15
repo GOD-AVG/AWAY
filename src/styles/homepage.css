@@ -1,0 +1,611 @@
+/* Base Styles */
+* {
+  box-sizing: border-box; /* Ensure all elements respect padding/margins */
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #000000; /* Set background to black */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  overflow-y: auto; /* Allow vertical scrolling */
+  font-family: 'Montserrat', sans-serif; /* Apply Montserrat globally */
+}
+
+.homepage {
+  width: 100vw; /* Full viewport width */
+  min-height: 100vh; /* Ensure full height */
+  background-color: #000000; /* Ensure black background */
+  color: #F4F3EF;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  display: flex;
+  flex-direction: column;
+}
+
+/* Navigation */
+.navigation {
+  position: fixed;
+  bottom: 0.4rem; /* Position at the bottom */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  width: 95%;
+  max-width: 80rem;
+}
+
+.nav-container {
+  padding: 0.75rem 0.75rem 0.75rem 0.25rem; /* Reduced left padding from 0.5rem to 0.25rem */
+  background-color: rgba(37, 37, 37, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(37, 37, 37,0.1);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Space between logo and buttons */
+  transition: width 0.3s ease; /* Smooth width transition */
+}
+
+.nav-container.expanded {
+  width: 100%; /* Full width when expanded */
+}
+
+.nav-container.shrunk {
+  width: 80px; /* Adjusted to fit the AWAY logo with reduced padding */
+}
+
+.nav-logo {
+  font-size: 1.5rem;
+  font-weight: 700; /* Bold weight to match logo */
+  color: #ffffff;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0.5rem 0.25rem; /* Reduced left/right padding from 0.5rem to 0.25rem */
+}
+
+.nav-logo:hover {
+  color: rgb(15, 255, 80);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  transition: opacity 0.3s ease; /* Smooth opacity transition */
+}
+
+.nav-container.expanded .nav-buttons {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-container.shrunk .nav-buttons {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nav-button {
+  width: 40px; /* Circular button size */
+  height: 40px;
+  background: transparent;
+  border: 1px solid #F4F3EF;
+  color: #F4F3EF;
+  border-radius: 50%; /* Make buttons circular */
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-button:hover {
+  background: rgb(15, 255, 80);
+  color: #000000;
+}
+
+/* Content Container */
+.content-container {
+  width: 100%;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 1rem 0.5rem 5rem; /* Space for fixed nav at the bottom */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  flex-grow: 1; /* Allow container to grow */
+  overflow-y: auto; /* Enable vertical scrolling */
+  -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+  height: calc(100vh - 5rem); /* Ensure scrollable height */
+  background-color: #000000; /* Ensure black background */
+  /* Hide scrollbar but keep scrolling */
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+}
+
+.content-container::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, and Opera */
+}
+
+/* Content Card */
+.content-card {
+  width: 100%;
+  max-width: 40rem;
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #000000;
+  border-radius: 16px;
+  padding: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.2s;
+  position: relative; /* For positioning the save button */
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem; /* Space between profile picture and username */
+  position: relative; /* For absolute positioning of timestamp */
+}
+
+.profile-picture-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.profile-picture-button:hover {
+  transform: scale(1.1);
+}
+
+.profile-picture-button:focus {
+  outline: none;
+}
+
+.profile-picture-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+.profile-picture {
+  width: 40px; /* Circular profile picture size */
+  height: 40px;
+  border-radius: 50%; /* Circular shape */
+  object-fit: cover; /* Ensure image fills the circle without stretching */
+}
+
+.username-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.username-button:focus {
+  outline: none;
+}
+
+.username-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.username {
+  font-weight: 600; /* Slightly lighter than logo but still bold */
+  font-size: 1rem;
+  flex-grow: 1; /* Allow username to take available space */
+  color: #ffffff; /* Set username to white */
+}
+
+.timestamp {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #F4F3EF99;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.card-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+  word-break: break-word; /* Prevent text overflow */
+  margin: 0;
+  font-weight: 600; /* Match bold style */
+}
+
+/* Media Styles */
+.media-placeholder {
+  width: 100%;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  color: #F4F3EF99;
+  font-weight: 600;
+}
+
+.post-image {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: contain; /* Ensure image fits fully without cropping */
+}
+
+.post-video {
+  width: 100%;
+  border-radius: 8px;
+  object-fit: contain; /* Ensure video fits fully without cropping */
+}
+
+.image-placeholder {
+  background-color: #F4F3EF33;
+}
+
+.video-placeholder {
+  background-color: #F4F3EF22;
+}
+
+.card-footer {
+  display: flex;
+  gap: 1.5rem; /* Increased from 1rem to 1.5rem for more spacing */
+  align-items: center;
+  position: relative; /* For positioning the save button */
+}
+
+.action-button {
+  background: transparent;
+  border: none;
+  color: #F4F3EF;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: color 0.2s;
+  font-weight: 600;
+}
+
+.action-button:hover {
+  color: rgb(15, 255, 80);
+}
+
+/* Like Button and Count Styles */
+.like-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.like-button {
+  width: 24px; /* Adjusted size to fit card-footer */
+  height: 24px;
+  cursor: pointer;
+  background: none; /* Ensure no background */
+  border: none; /* Ensure no border */
+  outline: none; /* Remove default focus outline */
+}
+
+.like-button:focus {
+  outline: none; /* Remove focus outline on click */
+}
+
+.like-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80); /* Custom focus outline for accessibility */
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.like-button polygon {
+  fill: transparent;
+  stroke: #F4F3EF; /* White stroke to match app theme */
+  stroke-width: 9; /* Increased from 3 to 4 for a thicker outline */
+  transition: fill 0.3s ease, stroke 0.2s ease;
+}
+
+/* Left-Right Shake Animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(-5px); }
+  30% { transform: translateX(5px); }
+  45% { transform: translateX(-5px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.like-button.shake {
+  animation: shake 0.5s ease;
+}
+
+.like-button.active polygon {
+  fill: rgb(15, 255, 80); /* Green fill when liked */
+  stroke: rgb(15, 255, 80); /* Match stroke to fill color when liked */
+}
+
+.like-button:hover:not(.active) polygon {
+  stroke: rgb(15, 255, 80); /* Green stroke on hover, matching app theme */
+}
+
+.like-count {
+  color: #F4F3EF;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.like-container:hover .like-count {
+  color: rgb(15, 255, 80);
+}
+
+/* Comment Button Styles */
+.comment-button {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.comment-button:focus {
+  outline: none;
+}
+
+.comment-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.comment-button path {
+  fill: none;
+  stroke: #F4F3EF;
+  stroke-width: 2; /* Reduced from 9 to 2 for a thinner outline */
+}
+
+/* Share Button Styles */
+.share-button {
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+.share-button:focus {
+  outline: none;
+}
+
+.share-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.share-button path {
+  fill: none;
+  stroke: #F4F3EF;
+  stroke-width: 2; /* Reduced from 9 to 2 for a thinner outline */
+}
+
+/* Save Button Styles */
+.save-button {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.save-button:focus {
+  outline: none;
+}
+
+.save-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.save-icon {
+  width: 24px;
+  height: 24px;
+  fill: none;
+  stroke: #F4F3EF;
+  stroke-width: 2;
+  transition: fill 0.3s ease, stroke 0.2s ease;
+}
+
+.save-button:hover .save-icon {
+  stroke: rgb(15, 255, 80);
+}
+
+.save-button.saved .save-icon {
+  fill: rgb(15, 255, 80);
+  stroke: rgb(15, 255, 80);
+}
+
+/* Ad Card Specific Styles */
+.ad-card .action-button.shop-now {
+  background: rgb(15, 255, 80);
+  color: #000000;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-weight: 700; /* Match logo boldness */
+}
+
+.ad-card .action-button.shop-now:hover {
+  background: rgb(62, 180, 94);
+  color: #000000;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .navigation {
+    width: calc(100% - 1rem);
+    max-width: none;
+  }
+
+  .nav-container {
+    padding: 0.5rem 0.5rem 0.5rem 0.125rem; /* Further reduced left padding for mobile */
+  }
+
+  .nav-container.shrunk {
+    width: 70px; /* Adjusted for smaller logo and padding on mobile */
+  }
+
+  .nav-logo {
+    font-size: 1.25rem;
+    padding: 0.4rem 0.2rem; /* Adjusted padding for mobile */
+  }
+
+  .nav-button {
+    width: 35px; /* Smaller buttons on mobile */
+    height: 35px;
+    font-size: 0.875rem;
+  }
+
+  .content-container {
+    padding: 0.5rem 0.25rem 4rem; /* Adjust for smaller nav at the bottom */
+    height: calc(100vh - 4rem); /* Adjust for smaller nav */
+  }
+
+  .content-card {
+    width: calc(100% - 0.5rem);
+    margin: 0 0.25rem;
+    padding: 0.5rem;
+  }
+
+  .card-content p {
+    font-size: 0.875rem;
+  }
+
+  .profile-picture {
+    width: 32px; /* Smaller profile picture on mobile */
+    height: 32px;
+  }
+
+  .like-button, .comment-button, .share-button {
+    width: 20px; /* Slightly smaller on mobile */
+    height: 20px;
+  }
+
+  .like-button polygon {
+    stroke-width: 3.5; /* Increased from 2.5 to 3.5 for a thicker outline */
+  }
+
+  .comment-button path, .share-button path {
+    stroke-width: 1.5; /* Adjusted for mobile */
+  }
+
+  .like-count {
+    font-size: 0.75rem;
+  }
+
+  .save-icon {
+    width: 20px;
+    height: 20px;
+    stroke-width: 1.5;
+  }
+
+  .save-button {
+    right: 0.5rem;
+  }
+
+  .card-footer {
+    gap: 1rem; /* Reduced from 1.5rem to 1rem for mobile to avoid overcrowding */
+  }
+}
+
+@media (max-width: 480px) {
+  .content-card {
+    width: calc(100% - 0.25rem);
+    margin: 0 0.125rem;
+    padding: 0.5rem;
+  }
+
+  .card-content p {
+    font-size: 0.75rem;
+  }
+
+  .username, .timestamp {
+    font-size: 0.75rem;
+  }
+
+  .profile-picture {
+    width: 28px; /* Even smaller profile picture on very small screens */
+    height: 28px;
+  }
+
+  .action-button {
+    font-size: 0.75rem;
+  }
+
+  .nav-button {
+    width: 30px; /* Even smaller buttons */
+    height: 30px;
+    font-size: 0.75rem;
+  }
+
+  .nav-container.shrunk {
+    width: 65px; /* Further adjusted for very small screens */
+  }
+
+  .nav-logo {
+    padding: 0.3rem 0.15rem; /* Further adjusted for very small screens */
+  }
+
+  .like-button, .comment-button, .share-button {
+    width: 18px; /* Even smaller on very small screens */
+    height: 18px;
+  }
+
+  .like-button polygon {
+    stroke-width: 9; /* Adjusted from 10 to 3 for consistency */
+  }
+
+  .comment-button path, .share-button path {
+    stroke-width: 2; /* Adjusted for very small screens */
+  }
+
+  .like-count {
+    font-size: 0.65rem;
+  }
+
+  .save-icon {
+    width: 18px;
+    height: 18px;
+    stroke-width: 2;
+  }
+
+  .save-button {
+    right: 0.5rem;
+  }
+
+  .card-footer {
+    gap: 0.75rem; /* Further reduced to 0.75rem for very small screens */
+  }
+}
