@@ -484,7 +484,7 @@ html, body {
   .nav-logo {
     font-size: 1.25rem;
     padding: 0.4rem 0.2rem; /* Adjusted padding for mobile */
-    left: 0.5rem; /* Maintain left alignment on mobile */
+    left: 0.1rem; /* Maintain left alignment on mobile */
   }
 
   .nav-button {
