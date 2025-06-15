@@ -58,7 +58,7 @@ html, body {
 .nav-logo {
   font-size: 1rem;
   font-weight: 700; /* Bold weight to match logo */
-  color: #ffffff;
+  color: rgb(15, 255, 80);
   background: transparent;
   border: none;
   cursor: pointer;
