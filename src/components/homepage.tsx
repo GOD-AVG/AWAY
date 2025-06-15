@@ -1,43 +1,44 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useRef, useEffect } from "react";
 import "../styles/homepage.css";
 
 const HomePage: React.FC = () => {
-  const [isNavExpanded, setIsNavExpanded] = useState(true); // State to track if nav container is expanded
+  const [isNavExpanded, setIsNavExpanded] = useState(true);
   const [likedPosts, setLikedPosts] = useState<{ [key: number]: boolean }>({
-    0: false, // Demo Post 1
-    1: false, // Demo Post 2
-    2: false, // Demo Post 3
-    3: false, // Demo Post 4 (Ad)
-    4: false, // Demo Post 5
-  }); // State to track liked posts
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
   const [likeCounts, setLikeCounts] = useState<{ [key: number]: number }>({
-    0: 12, // Demo Post 1
-    1: 12, // Demo Post 2
-    2: 12, // Demo Post 3
-    3: 12, // Demo Post 4 (Ad)
-    4: 12, // Demo Post 5
-  }); // State to track like counts
+    0: 12,
+    1: 12,
+    2: 12,
+    3: 12,
+    4: 12,
+  });
   const [savedPosts, setSavedPosts] = useState<{ [key: number]: boolean }>({
-    0: false, // Demo Post 1
-    1: false, // Demo Post 2
-    2: false, // Demo Post 3
-    3: false, // Demo Post 4 (Ad)
-    4: false, // Demo Post 5
-  }); // State to track saved posts
+    0: false,
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+  });
+  const [isDragging, setIsDragging] = useState(false);
+  const [navTop, setNavTop] = useState(0.4); // Initial top position in rem
+  const navRef = useRef<HTMLDivElement>(null);
+  const dragStartY = useRef<number>(0);
+  const currentTop = useRef<number>(0);
 
   const toggleNav = () => {
-    setIsNavExpanded(!isNavExpanded); // Toggle the navigation container size
+    setIsNavExpanded(!isNavExpanded);
   };
 
   const toggleLike = useCallback((postIndex: number) => {
     console.log(`Toggling like for post ${postIndex}`);
-
     let isProcessing = false;
-
     if (isProcessing) return;
-
     isProcessing = true;
-
     setLikedPosts((prev) => {
       const newLikedState = { ...prev, [postIndex]: !prev[postIndex] };
       setLikeCounts((prevCounts) => ({
@@ -47,7 +48,6 @@ const HomePage: React.FC = () => {
       }));
       return newLikedState;
     });
-
     setTimeout(() => {
       isProcessing = false;
     }, 300);
@@ -75,6 +75,105 @@ const HomePage: React.FC = () => {
   const handleUsernameClick = (username: string) => {
     console.log(`Username clicked for ${username}`);
   };
+
+  // Convert rem to pixels
+  const remToPixels = (rem: number) => {
+    return (
+      rem * parseFloat(getComputedStyle(document.documentElement).fontSize)
+    );
+  };
+
+  // Convert pixels to rem
+  const pixelsToRem = (px: number) => {
+    return px / parseFloat(getComputedStyle(document.documentElement).fontSize);
+  };
+
+  // Start dragging
+  const startDragging = (clientY: number) => {
+    if (!navRef.current || isNavExpanded) return; // Only drag in shrunk state
+    setIsDragging(true);
+    dragStartY.current = clientY;
+    currentTop.current = remToPixels(navTop);
+  };
+
+  // Handle drag movement
+  const handleDrag = (clientY: number) => {
+    if (!isDragging || !navRef.current) return;
+    const deltaY = clientY - dragStartY.current;
+    let newTop = currentTop.current + deltaY;
+    const navHeight = navRef.current.offsetHeight;
+    const maxTop = window.innerHeight - navHeight;
+    newTop = Math.max(0, Math.min(newTop, maxTop));
+    setNavTop(pixelsToRem(newTop));
+    dragStartY.current = clientY;
+    currentTop.current = newTop;
+  };
+
+  // Stop dragging
+  const stopDragging = () => {
+    if (!isDragging) return;
+    setIsDragging(false);
+  };
+
+  // Mouse event handlers
+  const handleMouseDown = (e: React.MouseEvent) => {
+    startDragging(e.clientY);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    handleDrag(e.clientY);
+  };
+
+  const handleMouseUp = () => {
+    stopDragging();
+  };
+
+  // Touch event handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    startDragging(e.touches[0].clientY);
+  };
+
+  const handleTouchMove = (e: TouchEvent) => {
+    e.preventDefault(); // Prevent scrolling
+    handleDrag(e.touches[0].clientY);
+  };
+
+  const handleTouchEnd = () => {
+    stopDragging();
+  };
+
+  // Add/remove global event listeners
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener("mousemove", handleMouseMove);
+      document.addEventListener("mouseup", handleMouseUp);
+      document.addEventListener("touchmove", handleTouchMove, {
+        passive: false,
+      });
+      document.addEventListener("touchend", handleTouchEnd);
+    }
+    return () => {
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleMouseUp);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleTouchEnd);
+    };
+  }, [isDragging]);
+
+  // Update position on resize
+  useEffect(() => {
+    const handleResize = () => {
+      if (!navRef.current) return;
+      const navHeight = navRef.current.offsetHeight;
+      const maxTop = window.innerHeight - navHeight;
+      const currentTopPx = remToPixels(navTop);
+      if (currentTopPx > maxTop) {
+        setNavTop(pixelsToRem(maxTop));
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [navTop]);
 
   return (
     <div className="homepage">
@@ -561,11 +660,18 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="navigation">
+      <div
+        className={`navigation ${isDragging ? "dragging" : ""} ${
+          isNavExpanded ? "" : "shrunk"
+        }`}
+        ref={navRef}
+        style={{ top: `${navTop}rem`, bottom: "auto" }}
+        onMouseDown={handleMouseDown}
+        onTouchStart={handleTouchStart}
+      >
         <div
           className={`nav-container ${isNavExpanded ? "expanded" : "shrunk"}`}
         >
-          <div className="nav-left-space" style={{ width: "40px" }}></div>
           <button className="nav-logo" onClick={toggleNav}>
             AWAY
           </button>
