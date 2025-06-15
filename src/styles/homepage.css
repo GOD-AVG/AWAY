@@ -478,13 +478,13 @@ html, body {
   }
 
   .nav-container.shrunk {
-    width: 95px; /* Adjusted for smaller logo and padding on mobile */
+    width: 90px; /* Adjusted for smaller logo and padding on mobile */
   }
 
   .nav-logo {
     font-size: 1.25rem;
-    padding: 0.4rem 0.2rem; /* Adjusted padding for mobile */
-    left: 0.1rem; /* Maintain left alignment on mobile */
+    padding: 0.4rem 0.1rem; /* Adjusted padding for mobile */
+    left: 0.5rem; /* Maintain left alignment on mobile */
   }
 
   .nav-button {
