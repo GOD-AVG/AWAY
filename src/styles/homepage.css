@@ -474,11 +474,13 @@ html, body {
   }
 
   .nav-container {
-    padding: 0.5rem 0.5rem 0.5rem 0.125rem; /* Further reduced left padding for mobile */
+    padding: 0.5rem 0.5rem 0.5rem 0.125rem;
+    border-radius: 22px; /* Further reduced left padding for mobile */
   }
 
   .nav-container.shrunk {
-    width: 90px; /* Adjusted for smaller logo and padding on mobile */
+    width: 90px; 
+    border-radius: 22px;/* Adjusted for smaller logo and padding on mobile */
   }
 
   .nav-logo {
