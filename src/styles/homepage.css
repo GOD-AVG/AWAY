@@ -156,7 +156,8 @@ html, body {
 .card-header {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.5rem;
+  flex-wrap: wrap;
   position: relative;
 }
 
@@ -212,7 +213,6 @@ html, body {
 .username {
   font-weight: 600;
   font-size: 1rem;
-  flex-grow: 1;
   color: #ffffff;
 }
 
@@ -243,12 +243,21 @@ html, body {
 }
 
 .timestamp {
-  font-size: 0.875rem;
-  font-weight: 600;
-  color: #F4F3EF99;
-  position: absolute;
-  right: 0;
-  top: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #F4F3EF;
+  background-color: rgba(244, 243, 239, 0.1);
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.timestamp::before {
+  content: "•";
+  color: #F4F3EF;
+  font-size: 0.75rem;
 }
 
 .card-content {
@@ -299,11 +308,13 @@ html, body {
 
 .card-footer {
   display: flex;
-  gap: 1.5rem;
+  gap: 2rem; /* Increased gap to accommodate larger buttons */
   align-items: center;
   position: relative;
+  padding: 0.5rem 0; /* Added padding for touch target spacing */
 }
 
+/* Action Button (e.g., Shop Now) */
 .action-button {
   background: transparent;
   border: none;
@@ -322,16 +333,18 @@ html, body {
 .like-container {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: 0.75rem; /* Increased gap for better spacing */
 }
 
 .like-button {
-  width: 24px;
-  height: 24px;
+  width: 36px; /* Increased from 24px */
+  height: 36px;
   cursor: pointer;
   background: none;
   border: none;
   outline: none;
+  padding: 6px; /* Added padding for larger touch target */
+  touch-action: manipulation; /* Improves touch responsiveness */
 }
 
 .like-button:focus {
@@ -347,7 +360,7 @@ html, body {
 .like-button polygon {
   fill: transparent;
   stroke: #F4F3EF;
-  stroke-width: 9;
+  stroke-width: 12; /* Increased from 9 for better visibility */
   transition: fill 0.3s ease, stroke 0.2s ease;
 }
 
@@ -380,12 +393,14 @@ html, body {
 
 /* Comment Button Styles */
 .comment-button {
-  width: 24px;
-  height: 24px;
+  width: 36px; /* Increased from 24px */
+  height: 36px;
   cursor: pointer;
   background: none;
   border: none;
   outline: none;
+  padding: 6px; /* Added padding for larger touch target */
+  touch-action: manipulation;
 }
 
 .comment-button:focus {
@@ -401,17 +416,19 @@ html, body {
 .comment-button path {
   fill: none;
   stroke: #F4F3EF;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased from 2 for better visibility */
 }
 
 /* Share Button Styles */
 .share-button {
-  width: 24px;
-  height: 24px;
+  width: 36px; /* Increased from 24px */
+  height: 36px;
   cursor: pointer;
   background: none;
   border: none;
   outline: none;
+  padding: 6px; /* Added padding for larger touch target */
+  touch-action: manipulation;
 }
 
 .share-button:focus {
@@ -427,7 +444,7 @@ html, body {
 .share-button path {
   fill: none;
   stroke: #F4F3EF;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased from 2 for better visibility */
 }
 
 /* Save Button Styles */
@@ -438,6 +455,8 @@ html, body {
   border: none;
   cursor: pointer;
   outline: none;
+  padding: 6px; /* Added padding for larger touch target */
+  touch-action: manipulation;
 }
 
 .save-button:focus {
@@ -451,11 +470,11 @@ html, body {
 }
 
 .save-icon {
-  width: 24px;
-  height: 24px;
+  width: 32px; /* Increased from 24px */
+  height: 32px;
   fill: none;
   stroke: #F4F3EF;
-  stroke-width: 2;
+  stroke-width: 2.5; /* Increased from 2 for better visibility */
   transition: fill 0.3s ease, stroke 0.2s ease;
 }
 
@@ -476,6 +495,17 @@ html, body {
 .ad-card .action-button.shop-now:hover {
   background: rgb(62, 180, 94);
   color: #000000;
+}
+
+/* Loading and End Message Styles */
+.loading, .end-message {
+  width: 100%;
+  max-width: 40rem;
+  text-align: center;
+  color: #F4F3EF;
+  font-size: 0.875rem;
+  font-weight: 600;
+  padding: 1rem;
 }
 
 /* Responsive Adjustments */
@@ -527,40 +557,61 @@ html, body {
     height: 32px;
   }
 
+  .username {
+    font-size: 0.875rem;
+  }
+
   .follow-button {
     padding: 0.4rem 0.8rem;
     font-size: 0.75rem;
   }
 
+  .timestamp {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
+  }
+
+  .timestamp::before {
+    font-size: 0.7rem;
+  }
+
+  .card-footer {
+    gap: 1.5rem; /* Adjusted gap for larger buttons */
+    padding: 0.4rem 0;
+  }
+
   .like-button, .comment-button, .share-button {
-    width: 20px;
-    height: 20px;
+    width: 28px; /* Increased from 20px */
+    height: 28px;
+    padding: 5px;
   }
 
   .like-button polygon {
-    stroke-width: 3.5;
+    stroke-width: 10; /* Adjusted from 3.5 */
   }
 
   .comment-button path, .share-button path {
-    stroke-width: 1.5;
+    stroke-width: 2; /* Adjusted from 1.5 */
   }
 
   .like-count {
     font-size: 0.75rem;
   }
 
-  .save-icon {
-    width: 20px;
-    height: 20px;
-    stroke-width: 1.5;
-  }
-
   .save-button {
     right: 0.5rem;
+    padding: 5px;
   }
 
-  .card-footer {
-    gap: 1rem;
+  .save-icon {
+    width: 28px; /* Increased from 20px */
+    height: 28px;
+    stroke-width: 2;
+  }
+
+  .loading, .end-message {
+    font-size: 0.75rem;
+    padding: 0.75rem;
   }
 }
 
@@ -575,7 +626,7 @@ html, body {
     font-size: 0.75rem;
   }
 
-  .username, .timestamp {
+  .username {
     font-size: 0.75rem;
   }
 
@@ -586,6 +637,15 @@ html, body {
 
   .follow-button {
     padding: 0.3rem 0.6rem;
+    font-size: 0.65rem;
+  }
+
+  .timestamp {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.35rem;
+  }
+
+  .timestamp::before {
     font-size: 0.65rem;
   }
 
@@ -608,34 +668,42 @@ html, body {
     left: 0.5rem;
   }
 
+  .card-footer {
+    gap: 1.25rem; /* Adjusted gap for larger buttons */
+    padding: 0.3rem 0;
+  }
+
   .like-button, .comment-button, .share-button {
-    width: 18px;
-    height: 18px;
+    width: 30px; /* Increased from 18px */
+    height: 30px;
+    padding: 4px;
   }
 
   .like-button polygon {
-    stroke-width: 9;
+    stroke-width: 8; /* Adjusted from 9 */
   }
 
   .comment-button path, .share-button path {
-    stroke-width: 2;
+    stroke-width: 1.8; /* Adjusted from 2 */
   }
 
   .like-count {
     font-size: 0.65rem;
   }
 
-  .save-icon {
-    width: 18px;
-    height: 18px;
-    stroke-width: 2;
-  }
-
   .save-button {
     right: 0.5rem;
+    padding: 4px;
   }
 
-  .card-footer {
-    gap: 0.75rem;
+  .save-icon {
+    width: 24px; /* Increased from 18px */
+    height: 24px;
+    stroke-width: 1.8;
+  }
+
+  .loading, .end-message {
+    font-size: 0.65rem;
+    padding: 0.5rem;
   }
 }
