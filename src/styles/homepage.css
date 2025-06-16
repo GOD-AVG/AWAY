@@ -680,11 +680,11 @@ html, body {
   }
 
   .like-button polygon {
-    stroke-width: 8; /* Adjusted from 9 */
+    stroke-width: 10; /* Adjusted from 9 */
   }
 
   .comment-button path, .share-button path {
-    stroke-width: 1.8; /* Adjusted from 2 */
+    stroke-width: 2; /* Adjusted from 2 */
   }
 
   .like-count {
@@ -699,7 +699,7 @@ html, body {
   .save-icon {
     width: 24px; /* Increased from 18px */
     height: 24px;
-    stroke-width: 1.8;
+    stroke-width: 2;
   }
 
   .loading, .end-message {
