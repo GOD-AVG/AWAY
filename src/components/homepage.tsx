@@ -24,10 +24,18 @@ const HomePage: React.FC = () => {
     3: false,
     4: false,
   });
+  const [followedUsers, setFollowedUsers] = useState<{
+    [key: number]: boolean;
+  }>({
+    0: false,
+    1: false,
+    2: false,
+    4: false,
+  });
   const navRef = useRef<HTMLDivElement>(null);
 
   const toggleNav = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation(); // Prevent click from triggering shrink
+    e.stopPropagation();
     setIsNavExpanded(!isNavExpanded);
   };
 
@@ -57,6 +65,13 @@ const HomePage: React.FC = () => {
     }));
   }, []);
 
+  const toggleFollow = useCallback((postIndex: number) => {
+    setFollowedUsers((prev) => ({
+      ...prev,
+      [postIndex]: !prev[postIndex],
+    }));
+  }, []);
+
   const handleComment = (postIndex: number) => {
     console.log(`Comment clicked for post ${postIndex}`);
   };
@@ -73,11 +88,9 @@ const HomePage: React.FC = () => {
     console.log(`Username clicked for ${username}`);
   };
 
-  // Handle tap/touch to shrink when expanded
   useEffect(() => {
     const handleTapOrTouch = (e: MouseEvent | TouchEvent) => {
       if (!isNavExpanded || !navRef.current) return;
-      // Ignore if the target is inside the navigation container
       if (navRef.current.contains(e.target as Node)) {
         return;
       }
@@ -120,6 +133,13 @@ const HomePage: React.FC = () => {
               aria-label="View user1's profile"
             >
               <span className="username">user1</span>
+            </button>
+            <button
+              className={`follow-button ${followedUsers[0] ? "following" : ""}`}
+              onClick={() => toggleFollow(0)}
+              aria-label={followedUsers[0] ? "Unfollow user1" : "Follow user1"}
+            >
+              {followedUsers[0] ? "Following" : "Follow"}
             </button>
             <span className="timestamp">2h ago</span>
           </div>
@@ -214,7 +234,14 @@ const HomePage: React.FC = () => {
               onClick={() => handleUsernameClick("user2")}
               aria-label="View user2's profile"
             >
-              <span className="username">user2</span>
+              <span className="username">harsha_2006</span>
+            </button>
+            <button
+              className={`follow-button ${followedUsers[1] ? "following" : ""}`}
+              onClick={() => toggleFollow(1)}
+              aria-label={followedUsers[1] ? "Unfollow user2" : "Follow user2"}
+            >
+              {followedUsers[1] ? "Following" : "Follow"}
             </button>
             <span className="timestamp">5h ago</span>
           </div>
@@ -312,6 +339,13 @@ const HomePage: React.FC = () => {
               aria-label="View user3's profile"
             >
               <span className="username">user3</span>
+            </button>
+            <button
+              className={`follow-button ${followedUsers[2] ? "following" : ""}`}
+              onClick={() => toggleFollow(2)}
+              aria-label={followedUsers[2] ? "Unfollow user3" : "Follow user3"}
+            >
+              {followedUsers[2] ? "Following" : "Follow"}
             </button>
             <span className="timestamp">8h ago</span>
           </div>
@@ -509,6 +543,13 @@ const HomePage: React.FC = () => {
               aria-label="View user4's profile"
             >
               <span className="username">user4</span>
+            </button>
+            <button
+              className={`follow-button ${followedUsers[4] ? "following" : ""}`}
+              onClick={() => toggleFollow(4)}
+              aria-label={followedUsers[4] ? "Unfollow user4" : "Follow user4"}
+            >
+              {followedUsers[4] ? "Following" : "Follow"}
             </button>
             <span className="timestamp">12h ago</span>
           </div>
