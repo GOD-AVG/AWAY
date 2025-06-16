@@ -61,7 +61,7 @@ html, body {
   left: 0.75rem; /* Align to left margin with padding */
   font-size: 1.5rem;
   font-weight: bold;
-  color: rgb(255, 0, 0);
+  color: rgb(255, 255, 255);
   background: transparent;
   border: none;
   cursor: pointer;
