@@ -1,6 +1,27 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
 import "../styles/homepage.css";
 
+// Custom hook for double-tap detection
+const useDoubleTap = (
+  callback: (e: React.TouchEvent) => void,
+  threshold: number = 300
+) => {
+  const lastTap = useRef<number>(0);
+
+  return useCallback(
+    (e: React.TouchEvent) => {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap.current;
+      if (tapLength < threshold && tapLength > 0) {
+        e.stopPropagation(); // Prevent bubbling to parent handlers
+        callback(e);
+      }
+      lastTap.current = currentTime;
+    },
+    [callback, threshold]
+  );
+};
+
 const HomePage: React.FC = () => {
   const [isNavExpanded, setIsNavExpanded] = useState(true);
   const [likedPosts, setLikedPosts] = useState<{ [key: number]: boolean }>({
@@ -88,6 +109,16 @@ const HomePage: React.FC = () => {
     console.log(`Username clicked for ${username}`);
   };
 
+  // Double-tap handler for non-video posts
+  const handleDoubleTap = useDoubleTap((e: React.TouchEvent) => {
+    const postIndex = parseInt(
+      (e.currentTarget as HTMLDivElement).dataset.postIndex || "0"
+    );
+    if (!likedPosts[postIndex]) {
+      toggleLike(postIndex);
+    }
+  });
+
   useEffect(() => {
     const handleTapOrTouch = (e: MouseEvent | TouchEvent) => {
       if (!isNavExpanded || !navRef.current) return;
@@ -134,6 +165,7 @@ const HomePage: React.FC = () => {
             >
               <span className="username">user1</span>
             </button>
+            <span className="timestamp">2h ago</span>
             <button
               className={`follow-button ${followedUsers[0] ? "following" : ""}`}
               onClick={() => toggleFollow(0)}
@@ -141,9 +173,12 @@ const HomePage: React.FC = () => {
             >
               {followedUsers[0] ? "Following" : "Follow"}
             </button>
-            <span className="timestamp">2h ago</span>
           </div>
-          <div className="card-content">
+          <div
+            className="card-content"
+            data-post-index="0"
+            onTouchStart={handleDoubleTap}
+          >
             <p>
               Exploring the mountains today! Loving the fresh air and stunning
               views. 🏞️ #NatureLover
@@ -236,6 +271,7 @@ const HomePage: React.FC = () => {
             >
               <span className="username">harsha_2006</span>
             </button>
+            <span className="timestamp">5h ago</span>
             <button
               className={`follow-button ${followedUsers[1] ? "following" : ""}`}
               onClick={() => toggleFollow(1)}
@@ -243,9 +279,12 @@ const HomePage: React.FC = () => {
             >
               {followedUsers[1] ? "Following" : "Follow"}
             </button>
-            <span className="timestamp">5h ago</span>
           </div>
-          <div className="card-content">
+          <div
+            className="card-content"
+            data-post-index="1"
+            onTouchStart={handleDoubleTap}
+          >
             <img
               src="https://i.pinimg.com/originals/52/e2/0c/52e20cf74a46febe85a00b2867059b1c.gif"
               alt="Spider-Man in action"
@@ -340,6 +379,7 @@ const HomePage: React.FC = () => {
             >
               <span className="username">user3</span>
             </button>
+            <span className="timestamp">8h ago</span>
             <button
               className={`follow-button ${followedUsers[2] ? "following" : ""}`}
               onClick={() => toggleFollow(2)}
@@ -347,9 +387,8 @@ const HomePage: React.FC = () => {
             >
               {followedUsers[2] ? "Following" : "Follow"}
             </button>
-            <span className="timestamp">8h ago</span>
           </div>
-          <div className="card-content">
+          <div className="card-content" data-post-index="2">
             <video className="post-video" controls>
               <source
                 src="https://www.w3schools.com/html/mov_bbb.mp4"
@@ -448,7 +487,11 @@ const HomePage: React.FC = () => {
             </button>
             <span className="timestamp">Promoted</span>
           </div>
-          <div className="card-content">
+          <div
+            className="card-content"
+            data-post-index="3"
+            onTouchStart={handleDoubleTap}
+          >
             <img
               src="https://images-porsche.imgix.net/-/media/243EAB8F810C4DE395A5DD4C0D154B9F_197D59EBE2B0444DAD1D8C930220A2FC_CZ26W03IX0010-911-carrera-s-side?w=2560&h=697&q=45&crop=faces%2Centropy%2Cedges&auto=format"
               alt="Porsche car"
@@ -544,6 +587,7 @@ const HomePage: React.FC = () => {
             >
               <span className="username">user4</span>
             </button>
+            <span className="timestamp">12h ago</span>
             <button
               className={`follow-button ${followedUsers[4] ? "following" : ""}`}
               onClick={() => toggleFollow(4)}
@@ -551,9 +595,12 @@ const HomePage: React.FC = () => {
             >
               {followedUsers[4] ? "Following" : "Follow"}
             </button>
-            <span className="timestamp">12h ago</span>
           </div>
-          <div className="card-content">
+          <div
+            className="card-content"
+            data-post-index="4"
+            onTouchStart={handleDoubleTap}
+          >
             <p>Just tried this amazing coffee shop! ☕ #CoffeeLovers</p>
           </div>
           <div className="card-footer">
