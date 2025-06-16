@@ -7,7 +7,7 @@ html, body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: white; /* Set background to black */
+  background-color: #000000; /* Set background to black */
   overflow-x: hidden; /* Prevent horizontal scrolling */
   overflow-y: auto; /* Allow vertical scrolling */
   font-family: 'Montserrat', sans-serif; /* Apply Montserrat globally */
@@ -61,7 +61,7 @@ html, body {
   left: 0.75rem; /* Align to left margin with padding */
   font-size: 1.5rem;
   font-weight: bold;
-  color: white;
+  color: rgb(255, 0, 0);
   background: transparent;
   border: none;
   cursor: pointer;
