@@ -1,64 +1,684 @@
+/* Reset global styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #000000;
+  overflow-x: hidden;
+  overflow-y: auto;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Reset box-sizing globally */
+* {
+  box-sizing: border-box;
+}
+
 /* Profile Page Styles */
-.profile-page {
+.prof-page {
   width: 100vw;
   min-height: 100vh;
   background-color: #000000;
   color: #F4F3EF;
+  font-family: 'Montserrat', sans-serif;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-family: 'Montserrat', sans-serif;
-  padding: 1rem;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.profile-page h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 2rem;
-  text-align: center;
+.prof-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 0 1rem 5rem; /* Increased bottom padding for navigation */
 }
 
-.reload-button {
-  background-color: rgb(15, 255, 80);
-  color: #000000;
-  padding: 0.75rem 1.5rem;
+/* Profile Header */
+.prof-header {
+  width: 100%;
+  position: relative;
+}
+
+.prof-cover-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+}
+
+.prof-cover-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prof-info {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-top: -75px;
+  padding: 0 1rem;
+}
+
+.profile-picture-button {
+  background: none;
   border: none;
-  border-radius: 8px;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.profile-picture-button:hover {
+  transform: scale(1.1);
+}
+
+.profile-picture-button:focus {
+  outline: none;
+}
+
+.profile-picture-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
+.prof-picture-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid #000000;
+  background-color: #000000;
+}
+
+.prof-pic {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.prof-details {
+  margin-top: 1rem;
+}
+
+.username-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.username-button:focus {
+  outline: none;
+}
+
+.username-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.prof-username {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0;
+  color: #F4F3EF;
+}
+
+.prof-handle {
+  font-size: 1rem;
+  color: #A9A9A9;
+  margin: 0.25rem 0;
+}
+
+.prof-bio {
+  font-size: 1rem;
+  margin: 0.5rem 0;
+}
+
+.prof-meta {
+  display: flex;
+  gap: 1.5rem;
+  font-size: 0.875rem;
+  color: #A9A9A9;
+  margin-bottom: 1rem;
+}
+
+.prof-follow-count strong {
+  color: #F4F3EF;
+  margin-right: 0.25rem;
+}
+
+/* Tabs */
+.prof-tabs {
+  display: flex;
+  border-bottom: 1px solid #000000;
+  margin-bottom: 1rem;
+  background-color: rgb(0, 0, 0);
+  border-radius: 24px;
+}
+
+.prof-tab {
+  flex: 1;
+  padding: 1rem;
+  text-align: center;
   font-size: 1rem;
   font-weight: 600;
+  color: #A9A9A9;
+  background: none;
+  border: none;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: color 0.2s ease;
 }
 
-.reload-button:hover {
-  background-color: rgb(62, 180, 94);
+.prof-tab.active {
+  color: #F4F3EF;
 }
 
-.reload-button:focus {
-  outline: 2px solid #F4F3EF;
+.prof-tab:hover {
+  color: #F4F3EF;
+}
+
+.prof-tab:focus {
+  outline: none;
+}
+
+.prof-tab:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
   outline-offset: 2px;
 }
 
+/* Tab Content */
+.prof-tab-content {
+  width: 100%;
+}
+
+.prof-posts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+/* Post Card Styles */
+.content-card {
+  background-color: rgba(0, 0, 0, 0.05);
+  border: 1px solid #000000;
+  border-radius: 16px;
+  padding: 0.75rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  transition: transform 0.2s;
+}
+
+.content-card:hover {
+  transform: translateY(-2px);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.card-header .profile-picture {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.card-header .username {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #F4F3EF;
+}
+
+.timestamp {
+  font-size: 0.875rem;
+  color: #A9A9A9;
+}
+
+.card-content {
+  margin-bottom: 0.5rem;
+}
+
+.card-content p {
+  font-size: 1rem;
+  color: #F4F3EF;
+  margin: 0.5rem 0;
+  font-weight: 600;
+}
+
+.hashtag-button {
+  color: rgb(15, 255, 80);
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.hashtag-button:focus {
+  outline: none;
+}
+
+.hashtag-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+}
+
+.post-image {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.card-footer {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.like-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.like-button {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 6px;
+  touch-action: manipulation;
+}
+
+.like-button:focus {
+  outline: none;
+}
+
+.like-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.like-button polygon {
+  fill: transparent;
+  stroke: #F4F3EF;
+  stroke-width: 12;
+  transition: fill 0.3s ease, stroke 0.2s ease;
+}
+
+@keyframes shake {
+  0% { transform: translateX(0); }
+  15% { transform: translateX(-5px); }
+  30% { transform: translateX(5px); }
+  45% { transform: translateX(-5px); }
+  60% { transform: translateX(5px); }
+  75% { transform: translateX(-3px); }
+  90% { transform: translateX(3px); }
+  100% { transform: translateX(0); }
+}
+
+.like-button.shake {
+  animation: shake 0.5s ease;
+}
+
+.like-button.active polygon {
+  fill: rgb(15, 255, 80);
+  stroke: rgb(15, 255, 80);
+}
+
+.like-count {
+  font-size: 0.875rem;
+  color: #F4F3EF;
+}
+
+.comment-button,
+.share-button {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  outline: none;
+  padding: 6px;
+  touch-action: manipulation;
+}
+
+.comment-button:focus,
+.share-button:focus {
+  outline: none;
+}
+
+.comment-button:focus-visible,
+.share-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.comment-button path,
+.share-button path {
+  fill: none;
+  stroke: #F4F3EF;
+  stroke-width: 2.5;
+}
+
+.save-button {
+  position: absolute;
+  right: 0.75rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 6px;
+  touch-action: manipulation;
+}
+
+.save-button:focus {
+  outline: none;
+}
+
+.save-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.save-icon {
+  width: 32px;
+  height: 32px;
+  fill: none;
+  stroke: #F4F3EF;
+  stroke-width: 2.5;
+  transition: fill 0.3s ease, stroke 0.2s ease;
+}
+
+.save-button.saved .save-icon {
+  fill: rgb(15, 255, 80);
+  stroke: rgb(15, 255, 80);
+}
+
+/* Navigation */
+.navigation {
+  position: fixed;
+  bottom: 0.4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 50;
+  width: 95%;
+  max-width: 80rem;
+}
+
+.nav-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.75rem 0.75rem 0.75rem 0.25rem;
+  background-color: rgba(37, 37, 37, 0.1);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(255, 255, 255);
+  border-radius: 24px;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: width 0.3s ease;
+}
+
+.nav-container.expanded {
+  width: 100%;
+}
+
+.nav-container.shrunk {
+  width: 100px;
+}
+
+.nav-logo {
+  position: absolute;
+  left: 0.75rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  padding: 0.5rem 0.25rem;
+  white-space: nowrap;
+}
+
+.nav-logo:hover {
+  color: rgb(255, 255, 255);
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 1rem;
+  transition: opacity 0.3s ease;
+}
+
+.nav-container.expanded .nav-buttons {
+  opacity: 1;
+  visibility: visible;
+}
+
+.nav-container.shrunk .nav-buttons {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.nav-button {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: 1px solid #F4F3EF;
+  color: #F4F3EF;
+  border-radius: 50%;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+}
+
+.nav-button:hover {
+  background: rgb(15, 255, 80);
+  color: #000000;
+}
+
+.profile-button .profile-icon,
+.home-icon {
+  width: 24px;
+  height: 24px;
+  transition: stroke 0.2s;
+}
+
+.nav-button:hover .profile-icon,
+.nav-button:hover .home-icon {
+  stroke: #000000;
+}
+
 /* Responsive Adjustments */
-@media (max-width: 640px) {
-  .profile-page h1 {
-    font-size: 2rem;
+@media (max-width: 768px) {
+  .prof-container {
+    padding: 0 0.5rem 4rem;
   }
 
-  .reload-button {
-    padding: 0.6rem 1.2rem;
+  .prof-cover-image {
+    height: 150px;
+  }
+
+  .prof-picture-container {
+    width: 120px;
+    height: 120px;
+  }
+
+  .prof-username {
+    font-size: 1.25rem;
+  }
+
+  .prof-bio,
+  .prof-handle,
+  .prof-meta {
     font-size: 0.875rem;
+  }
+
+  .prof-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+  }
+
+  .prof-tab {
+    padding: 0.75rem;
+    font-size: 0.875rem;
+  }
+
+  .navigation {
+    width: calc(100% - 1rem);
+    max-width: none;
+  }
+
+  .nav-container {
+    padding: 0.5rem 0.5rem 0.5rem 0.125rem;
+    border-radius: 22px;
+  }
+
+  .nav-container.shrunk {
+    width: 90px;
+    border-radius: 22px;
+  }
+
+  .nav-logo {
+    font-size: 1.25rem;
+    padding: 0.4rem 0.1rem;
+    left: 0.5rem;
+  }
+
+  .nav-button {
+    width: 36px;
+    height: 36px;
+    font-size: 0.875rem;
+    padding: 6px;
+  }
+
+  .profile-button .profile-icon,
+  .home-icon {
+    width: 22px;
+    height: 22px;
   }
 }
 
 @media (max-width: 480px) {
-  .profile-page h1 {
-    font-size: 1.5rem;
+  .prof-cover-image {
+    height: 100px;
   }
 
-  .reload-button {
-    padding: 0.5rem 1rem;
+  .prof-picture-container {
+    width: 100px;
+    height: 100px;
+    margin-left: 0.5rem;
+  }
+
+  .prof-info {
+    margin-top: -50px;
+    padding: 0 0.5rem;
+  }
+
+  .prof-username {
+    font-size: 1.125rem;
+  }
+
+  .prof-bio,
+  .prof-handle,
+  .prof-meta {
     font-size: 0.75rem;
+  }
+
+  .prof-meta {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prof-tab {
+    padding: 0.5rem;
+    font-size: 0.75rem;
+  }
+
+  .content-card {
+    padding: 0.5rem;
+  }
+
+  .card-header .profile-picture {
+    width: 32px;
+    height: 32px;
+  }
+
+  .card-content p {
+    font-size: 0.875rem;
+  }
+
+  .card-footer {
+    gap: 1.5rem;
+  }
+
+  .nav-button {
+    width: 32px;
+    height: 32px;
+    font-size: 0.75rem;
+    padding: 6px;
+  }
+
+  .profile-button .profile-icon,
+  .home-icon {
+    width: 20px;
+    height: 20px;
+  }
+
+  .nav-container.shrunk {
+    width: 80px;
+  }
+
+  .nav-logo {
+    font-size: 1rem;
+    left: 0.5rem;
+  }
+}
+
+@media (max-width: 320px) {
+  .nav-button {
+    width: 30px;
+    height: 30px;
+    padding: 5px;
+  }
+
+  .profile-button .profile-icon,
+  .home-icon {
+    width: 18px;
+    height: 18px;
+  }
+
+  .nav-container.shrunk {
+    width: 70px;
+  }
+
+  .nav-logo {
+    font-size: 0.875rem;
+    left: 0.4rem;
   }
 }
