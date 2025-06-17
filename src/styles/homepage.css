@@ -58,7 +58,6 @@ html, body {
 
 .nav-logo {
   position: absolute;
-  left: 0.75rem;
   font-size: 1.5rem;
   font-weight: bold;
   color: white;
@@ -68,6 +67,16 @@ html, body {
   transition: all 0.2s;
   padding: 0.5rem 0.25rem;
   white-space: nowrap;
+}
+
+.nav-container.expanded .nav-logo {
+  left: 0.75rem;
+}
+
+.nav-container.shrunk .nav-logo {
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.5rem 0;
 }
 
 .nav-logo:hover {
@@ -113,7 +122,8 @@ html, body {
 }
 
 .profile-button .profile-icon,
-.home-icon {
+.home-icon,
+.status-icon {
   width: 24px;
   height: 24px;
   transition: stroke 0.2s;
@@ -121,7 +131,7 @@ html, body {
 
 .nav-button:hover .profile-icon,
 .nav-button:hover .home-icon,
-.nav-button:hover .status-icon{
+.nav-button:hover .status-icon {
   stroke: #000000;
 }
 
@@ -560,10 +570,15 @@ html, body {
     border-radius: 22px;
   }
 
-  .nav-logo {
-    font-size: 1.25rem;
-    padding: 0.4rem 0.1rem;
+  .nav-container.expanded .nav-logo {
     left: 0.5rem;
+  }
+
+  .nav-container.shrunk .nav-logo {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.4rem 0;
+    font-size: 1.25rem;
   }
 
   .nav-button {
@@ -574,7 +589,8 @@ html, body {
   }
 
   .profile-button .profile-icon,
-  .home-icon {
+  .home-icon,
+  .status-icon {
     width: 22px;
     height: 22px;
   }
@@ -703,7 +719,8 @@ html, body {
   }
 
   .profile-button .profile-icon,
-  .home-icon {
+  .home-icon,
+  .status-icon {
     width: 20px;
     height: 20px;
   }
@@ -712,8 +729,14 @@ html, body {
     width: 80px;
   }
 
-  .nav-logo {
+  .nav-container.shrunk .nav-logo {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.4rem 0;
     font-size: 1rem;
+  }
+
+  .nav-container.expanded .nav-logo {
     left: 0.5rem;
   }
 
@@ -765,7 +788,8 @@ html, body {
   }
 
   .profile-button .profile-icon,
-  .home-icon {
+  .home-icon,
+  .status-icon {
     width: 18px;
     height: 18px;
   }
@@ -774,8 +798,14 @@ html, body {
     width: 70px;
   }
 
-  .nav-logo {
+  .nav-container.shrunk .nav-logo {
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.4rem 0;
     font-size: 0.875rem;
+  }
+
+  .nav-container.expanded .nav-logo {
     left: 0.4rem;
   }
 }
