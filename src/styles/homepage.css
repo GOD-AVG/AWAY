@@ -111,6 +111,16 @@ html, body {
   color: #000000;
 }
 
+.profile-button .profile-icon {
+  width: 24px;
+  height: 24px;
+  transition: stroke 0.2s;
+}
+
+.nav-button:hover .profile-icon {
+  stroke: #000000;
+}
+
 /* Content Container */
 .content-container {
   width: 100%;
@@ -537,6 +547,11 @@ html, body {
     font-size: 0.875rem;
   }
 
+  .profile-button .profile-icon {
+    width: 20px;
+    height: 20px;
+  }
+
   .content-container {
     padding: 0.5rem 0.25rem 4rem;
     height: calc(100vh - 4rem);
@@ -657,6 +672,11 @@ html, body {
     width: 30px;
     height: 30px;
     font-size: 0.75rem;
+  }
+
+  .profile-button .profile-icon {
+    width: 18px;
+    height: 18px;
   }
 
   .nav-container.shrunk {
