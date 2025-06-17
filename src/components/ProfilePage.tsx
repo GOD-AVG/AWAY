@@ -924,7 +924,7 @@ const ProfilePage: React.FC = () => {
         >
           <div className="nav-left-space" style={{ width: "40px" }}></div>
           <button className="nav-logo" onClick={toggleNav}>
-            SELF
+            SELF >
           </button>
           <div className="nav-buttons">
             <button
