@@ -111,6 +111,10 @@ const HomePage: React.FC = () => {
     console.log(`Username clicked for ${username}`);
   };
 
+  const handleHashtagClick = (hashtag: string) => {
+    console.log(`Hashtag clicked: ${hashtag}`);
+  };
+
   const handleDoubleTap = useDoubleTap((e: React.TouchEvent) => {
     const postIndex = parseInt(
       (e.currentTarget as HTMLDivElement).dataset.postIndex || "0"
@@ -119,6 +123,37 @@ const HomePage: React.FC = () => {
       toggleLike(postIndex);
     }
   });
+
+  const renderPostContent = (text: string) => {
+    const hashtagRegex = /#(\w+)/g;
+    let lastIndex = 0;
+    const elements: React.ReactNode[] = [];
+    let match: RegExpExecArray | null;
+
+    while ((match = hashtagRegex.exec(text)) !== null) {
+      const beforeText = text.slice(lastIndex, match.index);
+      const hashtag = match[1];
+      if (beforeText) {
+        elements.push(<span key={lastIndex}>{beforeText}</span>);
+      }
+      elements.push(
+        <button
+          key={match.index}
+          className="hashtag-button"
+          onClick={() => handleHashtagClick(hashtag)}
+        >
+          #{hashtag}
+        </button>
+      );
+      lastIndex = hashtagRegex.lastIndex;
+    }
+
+    if (lastIndex < text.length) {
+      elements.push(<span key={lastIndex}>{text.slice(lastIndex)}</span>);
+    }
+
+    return elements;
+  };
 
   useEffect(() => {
     const handleTapOrTouch = (e: MouseEvent | TouchEvent) => {
@@ -181,8 +216,9 @@ const HomePage: React.FC = () => {
             onTouchStart={handleDoubleTap}
           >
             <p>
-              Exploring the mountains today! Loving the fresh air and stunning
-              views. 🏞️ #NatureLover
+              {renderPostContent(
+                "Exploring the mountains today! Loving the fresh air and stunning views. 🏞️ #NatureLover"
+              )}
             </p>
           </div>
           <div className="card-footer">
@@ -291,7 +327,7 @@ const HomePage: React.FC = () => {
               alt="Spider-Man in action"
               className="post-image"
             />
-            <p>spiderman is an emotion. 🌅 #spiderman</p>
+            <p>{renderPostContent("spiderman is an emotion. 🌅 #spiderman")}</p>
           </div>
           <div className="card-footer">
             <div className="like-container">
@@ -389,7 +425,11 @@ const HomePage: React.FC = () => {
               {followedUsers[2] ? "Following" : "Follow"}
             </button>
           </div>
-          <div className="card-content" data-post-index="2">
+          <div
+            className="card-content"
+            data-post-index="2"
+            onTouchStart={handleDoubleTap}
+          >
             <video className="post-video" controls>
               <source
                 src="https://www.w3schools.com/html/mov_bbb.mp4"
@@ -397,7 +437,7 @@ const HomePage: React.FC = () => {
               />
               Your browser does not support the video tag.
             </video>
-            <p>City lights and good vibes! 🌃 #BUNNY</p>
+            <p>{renderPostContent("City lights and good vibes! 🌃 #BUNNY")}</p>
           </div>
           <div className="card-footer">
             <div className="like-container">
@@ -498,7 +538,7 @@ const HomePage: React.FC = () => {
               alt="Porsche car"
               className="post-image"
             />
-            <p>porsche is demonic #cars #porsche</p>
+            <p>{renderPostContent("porsche is demonic #cars #porsche")}</p>
           </div>
           <div className="card-footer">
             <div className="like-container">
@@ -554,7 +594,6 @@ const HomePage: React.FC = () => {
             >
               <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z" />
             </svg>
-            <button className="action-button shop-now">Shop Now</button>
             <button
               className={`save-button ${savedPosts[3] ? "saved" : ""}`}
               onClick={() => toggleSave(3)}
@@ -565,6 +604,9 @@ const HomePage: React.FC = () => {
                 <path d="M17 3H7c-1.1 0-2 .9-2 2v16l7-3 7 3V5c0-1.1-.9-2-2-2z" />
               </svg>
             </button>
+          </div>
+          <div className="ad-action">
+            <button className="action-button shop-now">Shop Now</button>
           </div>
         </div>
         {/* Demo Post 5: Text */}
@@ -602,7 +644,11 @@ const HomePage: React.FC = () => {
             data-post-index="4"
             onTouchStart={handleDoubleTap}
           >
-            <p>Just tried this amazing coffee shop! ☕ #CoffeeLovers</p>
+            <p>
+              {renderPostContent(
+                "Just tried this amazing coffee shop! ☕ #CoffeeLovers"
+              )}
+            </p>
           </div>
           <div className="card-footer">
             <div className="like-container">
@@ -680,6 +726,24 @@ const HomePage: React.FC = () => {
             AWAY
           </button>
           <div className="nav-buttons">
+            <button
+              className="nav-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/home");
+              }}
+              aria-label="Go to homepage"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="home-icon"
+                fill="none"
+                stroke="#F4F3EF"
+                strokeWidth="2"
+              >
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+              </svg>
+            </button>
             <button className="nav-button" onClick={(e) => e.stopPropagation()}>
               A
             </button>
