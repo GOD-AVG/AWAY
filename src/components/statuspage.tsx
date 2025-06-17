@@ -22,7 +22,7 @@ const StatusPage: React.FC = () => {
           >
             <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
           </svg>
-          Back to Home
+          STATUS PAGE IS IN PROGRESS
         </button>
       </div>
     </div>
