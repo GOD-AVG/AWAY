@@ -399,7 +399,7 @@ const ProfilePage: React.FC = () => {
                     onTouchStart={handleProfDoubleTap}
                   >
                     <img
-                      src="https://picsum.photos/600/400?random=12"
+                      src="https://i.pinimg.com/originals/52/e2/0c/52e20cf74a46febe85a00b2867059b1c.gif"
                       alt="Post image"
                       className="post-image"
                     />
