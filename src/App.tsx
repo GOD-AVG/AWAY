@@ -6,7 +6,8 @@ import {
 } from "react-router-dom";
 import LogoPage from "./components/logopage";
 import AuthPage from "./components/authpage";
-import HomePage from "./components/homepage"; // Import the HomePage component
+import HomePage from "./components/homepage";
+import ProfilePage from "./components/ProfilePage";
 
 function App() {
   return (
@@ -14,8 +15,8 @@ function App() {
       <Routes>
         <Route path="/" element={<LogoPage />} />
         <Route path="/auth" element={<AuthPage />} />
-        <Route path="/home" element={<HomePage />} /> {/* Add HomePage route */}
-        {/* Redirect any unknown paths to root */}
+        <Route path="/home" element={<HomePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
