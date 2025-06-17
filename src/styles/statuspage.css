@@ -216,6 +216,7 @@ html, body {
   align-items: center;
   z-index: 100;
   flex-direction: column;
+  padding-bottom: 4rem; /* Add padding to account for navigation bar */
 }
 
 .status-story-image,
@@ -301,9 +302,10 @@ html, body {
 
 .status-message-input-container {
   position: absolute;
-  bottom: 2rem;
+  bottom: 5rem; /* Increased to account for navigation bar height */
   width: 90%;
   max-width: 40rem;
+  z-index: 110; /* Ensure it appears above the navigation bar */
 }
 
 .status-message-input {
@@ -411,7 +413,7 @@ html, body {
   .status-message-input-container {
     width: 80%;
     max-width: 45rem;
-    bottom: 3rem;
+    bottom: 6rem; /* Adjusted for larger screens */
   }
 
   .status-message-input {
@@ -505,7 +507,7 @@ html, body {
 
   .status-message-input-container {
     width: 85%;
-    bottom: 2rem;
+    bottom: 4.5rem; /* Adjusted to stay above navigation */
   }
 
   .status-message-input {
@@ -550,6 +552,15 @@ html, body {
     width: 22px;
     height: 22px;
   }
+
+  .status-story-image,
+  .status-story-video {
+    max-height: 70vh; /* Reduced to make space for input */
+  }
+
+  .status-message-input-container {
+    bottom: 4rem; /* Ensure it stays above navigation */
+  }
 }
 
 @media (max-width: 480px) {
@@ -583,7 +594,7 @@ html, body {
   .status-story-image,
   .status-story-video {
     max-width: 95%;
-    max-height: 70vh;
+    max-height: 65vh; /* Further reduced for smaller screens */
   }
 
   .status-progress-bar-container {
@@ -610,7 +621,7 @@ html, body {
 
   .status-message-input-container {
     width: 80%;
-    bottom: 1.5rem;
+    bottom: 3.5rem; /* Adjusted for smaller screens */
   }
 
   .status-message-input {
@@ -694,7 +705,7 @@ html, body {
   .status-story-image,
   .status-story-video {
     max-width: 95%;
-    max-height: 65vh;
+    max-height: 60vh; /* Further reduced for very small screens */
   }
 
   .status-progress-bar-container {
@@ -721,13 +732,13 @@ html, body {
 
   .status-message-input-container {
     width: 75%;
-    bottom: 1rem;
+    bottom: 3rem; /* Adjusted to fit very small screens */
   }
 
   .status-message-input {
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.875rem;
+    padding: 0.5rem 0.75rem;
+    border-radius: 18px;
+    font-size: 0.75rem;
   }
 
   .status-nav-button {
@@ -759,5 +770,31 @@ html, body {
   .nav-logo {
     font-size: 0.875rem;
     left: 0.4rem;
+  }
+}
+
+/* Very small height devices (e.g., landscape mode on mobile) */
+@media (max-height: 400px) {
+  .status-story-image,
+  .status-story-video {
+    max-height: 55vh; /* Reduce height to make space */
+  }
+
+  .status-message-input-container {
+    bottom: 2.5rem; /* Closer to the bottom but still above navigation */
+  }
+
+  .status-message-input {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.75rem;
+  }
+
+  .status-username-display {
+    top: 2rem;
+    font-size: 1rem;
+  }
+
+  .status-progress-bar-container {
+    top: 0.5rem;
   }
 }
