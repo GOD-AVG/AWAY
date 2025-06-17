@@ -1,0 +1,64 @@
+/* Profile Page Styles */
+.profile-page {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #F4F3EF;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Montserrat', sans-serif;
+  padding: 1rem;
+}
+
+.profile-page h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.reload-button {
+  background-color: rgb(15, 255, 80);
+  color: #000000;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.reload-button:hover {
+  background-color: rgb(62, 180, 94);
+}
+
+.reload-button:focus {
+  outline: 2px solid #F4F3EF;
+  outline-offset: 2px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 640px) {
+  .profile-page h1 {
+    font-size: 2rem;
+  }
+
+  .reload-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.875rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .profile-page h1 {
+    font-size: 1.5rem;
+  }
+
+  .reload-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+  }
+}
