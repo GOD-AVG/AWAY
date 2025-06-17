@@ -120,7 +120,8 @@ html, body {
 }
 
 .nav-button:hover .profile-icon,
-.nav-button:hover .home-icon {
+.nav-button:hover .home-icon,
+.nav-button:hover .status-icon{
   stroke: #000000;
 }
 
