@@ -1,0 +1,120 @@
+/* Reset global styles */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #000000;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Reset box-sizing globally */
+* {
+  box-sizing: border-box;
+}
+
+/* Status Page Styles */
+.status-page {
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #000000;
+  color: #F4F3EF;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.status-container {
+  width: 100%;
+  max-width: 800px;
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Home Button Styles */
+.home-button {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: rgb(15, 255, 80);
+  color: #000000;
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  border: 1px solid #F4F3EF;
+  border-radius: 24px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.home-button:hover {
+  background-color: #F4F3EF;
+  transform: scale(1.05);
+}
+
+.home-button:focus {
+  outline: none;
+}
+
+.home-button:focus-visible {
+  outline: 2px solid rgb(15, 255, 80);
+  outline-offset: 2px;
+}
+
+.home-icon {
+  width: 20px;
+  height: 20px;
+  transition: stroke 0.2s ease;
+}
+
+.home-button:hover .home-icon {
+  stroke: rgb(15, 255, 80);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .status-container {
+    padding: 0.5rem;
+  }
+
+  .home-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.875rem;
+    border-radius: 20px;
+  }
+
+  .home-icon {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .home-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.75rem;
+    border-radius: 18px;
+  }
+
+  .home-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 320px) {
+  .home-button {
+    padding: 0.4rem 0.8rem;
+    font-size: 0.7rem;
+    border-radius: 16px;
+  }
+
+  .home-icon {
+    width: 14px;
+    height: 14px;
+  }
+}
