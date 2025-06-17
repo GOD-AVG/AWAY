@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useRef, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/homepage.css";
 
 // Custom hook for double-tap detection
@@ -13,7 +14,7 @@ const useDoubleTap = (
       const currentTime = new Date().getTime();
       const tapLength = currentTime - lastTap.current;
       if (tapLength < threshold && tapLength > 0) {
-        e.stopPropagation(); // Prevent bubbling to parent handlers
+        e.stopPropagation();
         callback(e);
       }
       lastTap.current = currentTime;
@@ -23,6 +24,7 @@ const useDoubleTap = (
 };
 
 const HomePage: React.FC = () => {
+  const navigate = useNavigate();
   const [isNavExpanded, setIsNavExpanded] = useState(true);
   const [likedPosts, setLikedPosts] = useState<{ [key: number]: boolean }>({
     0: false,
@@ -109,7 +111,6 @@ const HomePage: React.FC = () => {
     console.log(`Username clicked for ${username}`);
   };
 
-  // Double-tap handler for non-video posts
   const handleDoubleTap = useDoubleTap((e: React.TouchEvent) => {
     const postIndex = parseInt(
       (e.currentTarget as HTMLDivElement).dataset.postIndex || "0"
@@ -685,8 +686,23 @@ const HomePage: React.FC = () => {
             <button className="nav-button" onClick={(e) => e.stopPropagation()}>
               B
             </button>
-            <button className="nav-button" onClick={(e) => e.stopPropagation()}>
-              C
+            <button
+              className="nav-button profile-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/profile");
+              }}
+              aria-label="Go to profile page"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="profile-icon"
+                fill="none"
+                stroke="#F4F3EF"
+                strokeWidth="2"
+              >
+                <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+              </svg>
             </button>
           </div>
         </div>
