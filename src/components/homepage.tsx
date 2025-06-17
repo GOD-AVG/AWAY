@@ -744,11 +744,24 @@ const HomePage: React.FC = () => {
                 <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
               </svg>
             </button>
-            <button className="nav-button" onClick={(e) => e.stopPropagation()}>
-              A
-            </button>
-            <button className="nav-button" onClick={(e) => e.stopPropagation()}>
-              B
+            <button
+              className="nav-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                navigate("/status");
+              }}
+              aria-label="Go to status page"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="status-icon"
+                fill="none"
+                stroke="#F4F3EF"
+                strokeWidth="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v4l3 3" />
+              </svg>
             </button>
             <button
               className="nav-button profile-button"
