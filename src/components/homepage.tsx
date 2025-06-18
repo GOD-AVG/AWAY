@@ -725,6 +725,7 @@ const HomePage: React.FC = () => {
           <button className="nav-logo" onClick={toggleNav}>
             AWAY
           </button>
+          <div className="nav-buttons">
             <button
               className="nav-button"
               onClick={(e) => {
